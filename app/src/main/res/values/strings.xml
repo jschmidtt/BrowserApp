@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BrowserApp</string>
+    <string name="url_name">URL</string>
+</resources>
