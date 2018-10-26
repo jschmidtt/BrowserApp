@@ -1,5 +1,7 @@
 package edu.temple.browserapp;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +34,18 @@ public class MainActivity extends AppCompatActivity {
         //display = findViewById(R.id.htmlTextView);
         urlTextView = findViewById(R.id.urlEditText);
         webView = findViewById(R.id.webView);
+
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+        });
+
+        Intent intent = getIntent();
+        if(intent.getData() != null){
+            loadURL(intent.getData().toString());
+        }
 
         //Button Setup
         findViewById(R.id.goButton).setOnClickListener(new View.OnClickListener() {
@@ -66,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 }.start();
             }
         });//End Button
+    }
+
+    private void loadURL(String s) {
+        webView.loadUrl(s);
     }
 
     //Handler to set the display text
